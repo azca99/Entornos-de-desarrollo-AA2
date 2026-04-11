@@ -8,11 +8,11 @@
   },
   "author": "Daniel Azcárate",
   "license": "GPL-2.0-only",
- 
   "dependencies": {
-    "express": "^4.21.1",
-    "cors": "^2.8.5",
-    "sqlite3": "^5.1.6"
+    "cors": "^2.8.6",
+    "express": "^4.22.1",
+    "knex": "^3.2.9",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "nodemon": "^3.0.0"
