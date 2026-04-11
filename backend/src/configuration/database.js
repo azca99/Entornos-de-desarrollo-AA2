@@ -1,16 +1,13 @@
+const knex = require('knex');
 const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
 
-const dbPath = path.join(__dirname, '..', '..', 'sports.db');
-
-console.log('Base de datos usada por Node:', dbPath);
-
-const db = new sqlite3.Database(dbPath, (error) => {
-    if (error) {
-        console.error('Error al conectar con la base de datos:', error.message);
-    } else {
-        console.log('Conexión correcta con la base de datos SQLite');
-    }
+// Configuración de la base de datos: tipo, ubicación y otros parámetros
+const db = knex({
+    client: 'sqlite3',
+    connection: {
+        filename: path.join(__dirname, '..', '..', 'sports.db')
+    },
+    useNullAsDefault: true
 });
 
-module.exports = db;
+exports.db = db;
