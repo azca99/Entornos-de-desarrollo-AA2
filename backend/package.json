@@ -3,12 +3,18 @@
   "version": "0.1",
   "description": "Actividad de aprendizaje de Entornos de Desarrollo",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "author": "Daniel Azcárate",
   "license": "GPL-2.0-only",
  
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "cors": "^2.8.5",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
   }
 }
