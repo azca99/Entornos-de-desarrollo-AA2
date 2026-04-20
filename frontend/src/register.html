@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar equipo</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="module" src="register.js"></script>
+</head>
+<body>
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Listado de equipos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="register.html">Registrar equipo</a>
+            </li>
+        </ul>
+
+        <h1 class="mt-3">Registro de equipos</h1>
+
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre del equipo</label>
+                <input type="text" class="form-control" id="name">
+            </div>
+
+            <div class="mb-3">
+                <label for="city" class="form-label">Ciudad del equipo</label>
+                <input type="text" class="form-control" id="city">
+            </div>
+
+            <div class="mb-3">
+                <label for="sport" class="form-label">Deporte del equipo</label>
+                <input type="text" class="form-control" id="sport">
+            </div>
+
+            <button type="button" class="btn btn-primary" onClick="addTeam()">Registrar equipo</button>
+        </form>
+    </div>
+</body>
+</html>
