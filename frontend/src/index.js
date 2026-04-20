@@ -41,8 +41,9 @@ window.removeTeam = function (id) {
         axios.delete('http://localhost:3000/teams/' + id)
             .then((response) => {
                 if (response.status == 204) {
-                    notifyOk('Ciudad eliminada correctamente');
-                    el('city-' + id).remove();
+                    // TODO No se ve el mensaje
+                    notifyOk('Equipo eliminado correctamente');
+                    el('team ' + id).remove();
                 }
             })
             .catch((error) => {
