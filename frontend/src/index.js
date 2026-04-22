@@ -40,11 +40,9 @@ window.removeTeam = function (id) {
     if (confirm('¿Estás seguro de que deseas eliminar este equipo?')) {
         axios.delete('http://localhost:3000/teams/' + id)
             .then((response) => {
-                if (response.status == 204) {
                     // TODO No se ve el mensaje
                     notifyOk('Equipo eliminado correctamente');
                     el('team ' + id).remove();
-                }
             })
             .catch((error) => {
                 console.error('Error al eliminar el equipo:', error);
