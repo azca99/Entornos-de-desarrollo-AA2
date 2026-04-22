@@ -2,15 +2,26 @@ import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
 import { el, icon, td } from './documentUtil.js';
 import { notifyError, notifyOk } from './dialogUtil.js';
 
-window.readPlayers = function() {
-    axios.get('http://localhost:3000/players')
-        .then((response) => {
-            const playerList = response.data;
-            const playerTable = el('tableBody');
+// Guardar lista de equipos
+let teamsData = [];
 
-            playerTable.innerHTML = '';
+// Obtener nombre de team por id
+const getTeamNameById = function(id_team) {
+    const team = teamsData.find(team => team.id === id_team);
 
-            playerList.forEach(player => {
+    if (team) {
+        return team.name;
+    }
+
+    return 'Equipo no encontrado';
+};
+
+// Pintar players
+const printPlayers = function(playerList) {
+    const playerTable = el('tableBody');
+    playerTable.innerHTML = '';
+
+    playerList.forEach(player => {
                 const row = document.createElement('tr');
                 row.id = 'player-' + player.id;
 
@@ -18,7 +29,7 @@ window.readPlayers = function() {
                     td(player.name) +
                     td(player.birth_date) +
                     td(player.position) +
-                    td(player.id_team) +
+                    td(getTeamNameById(player.id_team)) +
                     '<td>' +
                         '<a class="btn btn-warning me-1" href="player-modify.html?id=' + player.id + '">' +
                             icon('edit') +
@@ -30,13 +41,53 @@ window.readPlayers = function() {
 
                 playerTable.appendChild(row);
             });
+}
+
+// READ: leer players
+window.readPlayers = function() {
+    Promise.all([
+        axios.get('http://localhost:3000/players'),
+        axios.get('http://localhost:3000/teams')
+    ])
+    .then(([playersResponse, teamsResponse]) => {
+        const playerList = playersResponse.data;
+        teamsData = teamsResponse.data;
+
+        printPlayers(playerList);
         })
-        .catch((error) => {
-            console.error('Error al cargar los jugadores:', error);
-            notifyError('Error al cargar los jugadores');
-        });
+    .catch((error) => {
+        console.error('Error al cargar los jugadores:', error);
+        notifyError('Error al cargar los jugadores');
+    });
 };
 
+// Buscar players por backend
+window.searchPlayers = function() {
+    const searchText = el('searchPlayer').value.trim();
+
+    if (searchText === '') {
+        readPlayers();
+        return;
+    }
+
+    // proteger input con encodeURIComponent
+    Promise.all([
+        axios.get('http://localhost:3000/players/search?name=' + encodeURIComponent(searchText)),
+        axios.get('http://localhost:3000/teams')
+    ])
+    .then(([playersResponse, teamsResponse]) => {
+        const playerList = playersResponse.data;
+        teamsData = teamsResponse.data;
+
+        printPlayers(playerList);
+        })
+    .catch((error) => {
+        console.error('Error al buscar jugadores:', error);
+        notifyError('Error al buscar jugadores');
+    });
+};
+
+// DELETE: eliminar players
 window.removePlayer = function(id) {
     if (confirm('¿Está seguro de que desea eliminar este jugador?')) {
         axios.delete('http://localhost:3000/players/' + id)

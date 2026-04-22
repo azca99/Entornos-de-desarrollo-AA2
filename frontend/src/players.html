@@ -11,18 +11,26 @@
     <script type="module" src="players.js"></script>
 </head>
 <body onload="readPlayers()">
+    <div>
+        <label for="searchPlayer" class="form-label">Buscar jugador</label>
+        <input type="text" class="form-control" id="searchPlayer" placeholder="Escribe el nombre del jugador" onkeyup="searchPlayers()">
+    </div>
+
     <div class="container">
         <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">Equipos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="players.html">Jugadores</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="player-register.html">Registrar jugador</a>
-            </li>
-        </ul>
+    <li class="nav-item">
+        <a class="nav-link" href="index.html">Equipos</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="register.html">Nuevo equipo</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="players.html">Jugadores</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="player-register.html">Nuevo jugador</a>
+    </li>
+</ul>v
 
         <h1>Listado de jugadores</h1>
 

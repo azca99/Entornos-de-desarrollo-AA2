@@ -10,16 +10,27 @@
     <script type="module" src="index.js"></script>
 </head>
 <body onload="readTeams()">
+    <div>
+        <label for="searchTeam" class="form-label">Buscar equipo</label>
+        <input type="text" class="form-control" id="searchTeam" placeholder="Escribe nombre, ciudad o deporte" onkeyup="filterTeams()">
+    </div>
+
     <div class="container">
 
         <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="index.html">Listado de equipos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register.html">Registrar equipo</a>
-            </li>
-        </ul>
+    <li class="nav-item">
+        <a class="nav-link active" href="index.html">Equipos</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="register.html">Nuevo equipo</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="players.html">Jugadores</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="player-register.html">Nuevo jugador</a>
+    </li>
+</ul>
 
         <h1>Listado de equipos</h1>
 
