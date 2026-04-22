@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de jugadores</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script type="module" src="players.js"></script>
+</head>
+<body onload="readPlayers()">
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Equipos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="players.html">Jugadores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="player-register.html">Registrar jugador</a>
+            </li>
+        </ul>
+
+        <h1>Listado de jugadores</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Posición</th>
+                    <th>Equipo</th> <!-- TODO cambiar id por nombre de equipo -->
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

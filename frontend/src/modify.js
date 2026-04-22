@@ -38,6 +38,7 @@ window.loadTeam = function() {
         });
 };
 
+// UPDATE team
 window.updateTeam = function() {
     const id = getTeamIdFromUrl();
 
