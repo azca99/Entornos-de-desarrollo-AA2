@@ -2,6 +2,25 @@ import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
 import { el } from './documentUtil.js';
 import { notifyError, notifyOk } from './dialogUtil.js';
 
+// Cambiar formato de la fecha para el backend
+const formatDateForBackend = function(dateString) {
+    if (!dateString) {
+        return '';
+    }
+
+    const parts = dateString.split('-');
+
+    if (parts.length !== 3) {
+        return '';
+    }
+
+    const year = parts[0];
+    const month = parts[1];
+    const day = parts[2];
+
+    return `${day}-${month}-${year}`;
+};
+
 // GET teams
 window.loadTeams = function() {
     axios.get('http://localhost:3000/teams')
@@ -27,6 +46,7 @@ window.loadTeams = function() {
         });
 };
 
+// PUT: añadir player 
 window.addPlayer = function() {
     const name = el('name').value.trim();
     const birth_date = el('birth_date').value;
@@ -40,7 +60,7 @@ window.addPlayer = function() {
 
     axios.post('http://localhost:3000/players', {
         name: name,
-        birth_date: birth_date,
+        birth_date: formatDateForBackend(birth_date),
         position: position,
         id_team: parseInt(id_team)
     })

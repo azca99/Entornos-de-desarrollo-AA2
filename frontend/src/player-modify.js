@@ -8,6 +8,44 @@ const getPlayerIdFromUrl = function() {
     return params.get('id');
 };
 
+// Cambiar formato de la fecha
+const formatDate = function(dateString) {
+    if (!dateString) {
+        return '';
+    }
+    
+    const parts = dateString.split('-');
+
+    if (parts.length !== 3) {
+        return '';
+    }
+
+    const day = parts[0];
+    const month = parts[1];
+    const year = parts[2];
+
+    return `${year}-${month}-${day}`;
+};
+
+// Cambiar formato de la fecha para el backend
+const formatDateForBackend = function(dateString) {
+    if (!dateString) {
+        return '';
+    }
+
+    const parts = dateString.split('-');
+
+    if (parts.length !== 3) {
+        return '';
+    }
+
+    const year = parts[0];
+    const month = parts[1];
+    const day = parts[2];
+
+    return `${day}-${month}-${year}`;
+};
+
 // Cargar teams para el select
 const loadTeams = function(selectedTeamId) {
     return axios.get('http://localhost:3000/teams')
@@ -49,7 +87,7 @@ window.loadPlayer = function() {
             return loadTeams(player.id_team)
                 .then(() => {
                     el('name').value = player.name;
-                    el('birth_date').value = player.birth_date;
+                    el('birth_date').value = formatDate(player.birth_date);
                     el('position').value = player.position;
                 });
         })
@@ -89,7 +127,7 @@ window.updatePlayer = function() {
     // PUT: mandar JSON al backend
     axios.put('http://localhost:3000/players/' + id, {
         name: name,
-        birth_date: birth_date,
+        birth_date: formatDateForBackend(birth_date),
         position: position,
         id_team: parseInt(id_team)
     })
