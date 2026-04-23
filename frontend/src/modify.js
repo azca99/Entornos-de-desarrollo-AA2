@@ -1,6 +1,6 @@
 import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
 import { el } from './documentUtil.js';
-import { notifyError, notifyOk } from './dialogUtil.js';
+import { notifyError, saveNotification } from './dialogUtil.js';
 
 // Obtener Id del equipo a modificar
 const getTeamIdFromUrl = function() {
@@ -66,15 +66,15 @@ window.updateTeam = function() {
         sport: sport
     })
     .then((response) => {
-        notifyOk('Equipo actualizado correctamente');
+        saveNotification('ok', 'Equipo actualizado correctamente');
         window.location.href = 'index.html';
     })
     .catch((error) => {
         console.error('Error al actualizar el equipo:', error);
         if (error.response && error.response.data && error.response.data.message) {
-            notifyError(error.response.data.message);
+            saveNotification('error', error.response.data.message);
         } else {
-            notifyError('Error desconocido');
+            saveNotification('error', 'Error desconocido');
         }
     });
 };

@@ -1,6 +1,6 @@
 import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
 import { el, icon, td } from './documentUtil.js';
-import { notifyError, notifyOk } from './dialogUtil.js';
+import { notifyError, notifyOk, saveNotification, showSavedNotification } from './dialogUtil.js';
 
 // Guardar lista de equipos
 let teamsData = [];
@@ -45,6 +45,8 @@ const printPlayers = function(playerList) {
 
 // READ: leer players
 window.readPlayers = function() {
+    showSavedNotification();
+
     Promise.all([
         axios.get('http://localhost:3000/players'),
         axios.get('http://localhost:3000/teams')
@@ -57,7 +59,7 @@ window.readPlayers = function() {
         })
     .catch((error) => {
         console.error('Error al cargar los jugadores:', error);
-        notifyError('Error al cargar los jugadores');
+        saveNotification('error', 'Error al cargar los jugadores');
     });
 };
 
@@ -83,7 +85,7 @@ window.searchPlayers = function() {
         })
     .catch((error) => {
         console.error('Error al buscar jugadores:', error);
-        notifyError('Error al buscar jugadores');
+        saveNotification('error', 'Error al buscar jugadores');
     });
 };
 
@@ -93,16 +95,17 @@ window.removePlayer = function(id) {
         axios.delete('http://localhost:3000/players/' + id)
             .then((response) => {
                 el('player-' + id).remove();
-                notifyOk('Jugador eliminado correctamente');
+                saveNotification('ok', 'Jugador eliminado correctamente');
             })
             .catch((error) => {
                 console.error('Error al eliminar el jugador:', error);
 
                 if (error.response && error.response.data && error.response.data.message) {
-                    notifyError(error.response.data.message);
+                    saveNotification('error', error.response.data.message);
                 } else {
-                    notifyError('Error al eliminar el jugador');
+                    saveNotification('error', 'Error al eliminar el jugador');
                 }
             });
     }
+    readPlayers();
 };

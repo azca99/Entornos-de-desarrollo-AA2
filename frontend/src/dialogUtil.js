@@ -5,7 +5,7 @@ const notifyError = function(message) {
         text: message,
         duration: 3000,
         gravity: 'top',
-        position: 'center',
+        position: 'right',
         style: {
             background: 'red'
         }
@@ -24,4 +24,35 @@ const notifyOk = function(message) {
     }).showToast();
 };
 
-export { notifyError, notifyOk };
+// Resolver problema de mostrar una notificación después de redirigir a otra página, guardando la notificación en localStorage y mostrándola al cargar la nueva página
+// Guarda notificación como JSON
+const saveNotification = function(type, message) {
+    console.log('Guardando notificación:', type, message);
+
+    localStorage.setItem('savedNotification', JSON.stringify({
+        type, 
+        message
+    }));
+};
+
+// Buscar y mostrar mensaje
+const showSavedNotification = function() {
+    const savedNotification = localStorage.getItem('savedNotification');
+    console.log('Notificación guardada:', savedNotification);
+
+    if (!savedNotification) {
+        return;
+    }
+
+    const notification = JSON.parse(savedNotification);
+
+    if (notification.type === 'ok') {
+        notifyOk(notification.message);
+    } else if (notification.type === 'error') {
+        notifyError(notification.message);
+    }
+
+    localStorage.removeItem('savedNotification');
+};
+
+export { notifyError, notifyOk, saveNotification, showSavedNotification };

@@ -1,6 +1,6 @@
 import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
 import { el } from './documentUtil.js';
-import { notifyError, notifyOk } from './dialogUtil.js';
+import { notifyError, notifyOk, saveNotification } from './dialogUtil.js';
 
 // Cambiar formato de la fecha para el backend
 const formatDateForBackend = function(dateString) {
@@ -42,7 +42,7 @@ window.loadTeams = function() {
         })
         .catch((error) => {
             console.error('Error al cargar los equipos:', error);
-            notifyError('Error al cargar los equipos');
+            saveNotification('error', 'Error al cargar los equipos');
         });
 };
 
@@ -54,7 +54,7 @@ window.addPlayer = function() {
     const id_team = el('id_team').value;
 
     if (name === '' || birth_date === '' || position === '' || id_team === '') {
-        notifyError('Todos los campos son obligatorios');
+        saveNotification('error', 'Todos los campos son obligatorios');
         return;
     }
 
@@ -65,20 +65,22 @@ window.addPlayer = function() {
         id_team: parseInt(id_team)
     })
     .then((response) => {
-        notifyOk('Jugador registrado correctamente');
+        saveNotification('ok', 'Jugador registrado correctamente');
 
         el('name').value = '';
         el('birth_date').value = '';
         el('position').value = '';
         el('id_team').value = '';
+        window.location.href = 'players.html';
+
     })
     .catch((error) => {
         console.error('Error al registrar el jugador:', error);
 
         if (error.response && error.response.data && error.response.data.message) {
-            notifyError(error.response.data.message);
+            saveNotification('error', error.response.data.message);
         } else {
-            notifyError('Error al registrar el jugador');
+            saveNotification('error', 'Error al registrar el jugador');
         }
     });
 };

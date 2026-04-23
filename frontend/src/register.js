@@ -1,6 +1,6 @@
 import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
 import { el } from './documentUtil.js';
-import { notifyError, notifyOk } from './dialogUtil.js';
+import { notifyError, saveNotification } from './dialogUtil.js';
 
 window.addTeam = function() {
 
@@ -22,7 +22,7 @@ window.addTeam = function() {
         sport: sport
     })
     .then((response) => {
-        notifyOk('Equipo registrado correctamente');
+        saveNotification('ok', 'Equipo registrado correctamente');
         el('name').value = '';
         el('city').value = '';
         el('sport').value = '';
@@ -32,9 +32,9 @@ window.addTeam = function() {
         console.error('Error al registrar el equipo:', error);
 
         if (error.response && error.response.data && error.response.data.message) {
-            notifyError(error.response.data.message);
+            saveNotification('error', error.response.data.message);
         } else {
-            notifyError('Error desconocido');
+            saveNotification('error', 'Error desconocido');
         }
     });
 };

@@ -1,6 +1,6 @@
 import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
 import { el } from './documentUtil.js';
-import { notifyError, notifyOk } from './dialogUtil.js';
+import { notifyError, notifyOk, saveNotification } from './dialogUtil.js';
 
 // Obtener Id del player a modificar
 const getPlayerIdFromUrl = function() {
@@ -75,7 +75,7 @@ window.loadPlayer = function() {
 
     // Validación: si no hay Id, mostrar error
     if (!id) {
-        notifyError('No se ha indicado el id del jugador');
+        saveNotification('error', 'No se ha indicado el id del jugador');
         return;
     }
 
@@ -95,9 +95,9 @@ window.loadPlayer = function() {
             console.error('Error al cargar el jugador:', error);
 
             if (error.response && error.response.data && error.response.data.message) {
-                notifyError(error.response.data.message);
+                saveNotification('error', error.response.data.message);
             } else {
-                notifyError('Error al cargar el jugador');
+                saveNotification('error', 'Error al cargar el jugador');
             }
         });
 };
@@ -108,7 +108,7 @@ window.updatePlayer = function() {
 
     // Validación: si no hay Id, mostrar error
     if (!id) {
-        notifyError('No se ha indicado el id del jugador');
+        saveNotification('error', 'No se ha indicado el id del jugador');
         return;
     }
 
@@ -120,7 +120,7 @@ window.updatePlayer = function() {
 
     // Validaciones
     if (name === '' || birth_date === '' || position === '' || id_team === '') {
-        notifyError('Todos los campos son obligatorios');
+        saveNotification('error', 'Todos los campos son obligatorios');
         return;
     }
 
@@ -132,16 +132,16 @@ window.updatePlayer = function() {
         id_team: parseInt(id_team)
     })
     .then((response) => {
-        notifyOk('Jugador actualizado correctamente');
+        saveNotification('ok', 'Jugador actualizado correctamente');
         window.location.href = 'players.html';
     })
     .catch((error) => {
         console.error('Error al actualizar el jugador:', error);
 
         if (error.response && error.response.data && error.response.data.message) {
-            notifyError(error.response.data.message);
+            saveNotification('error', error.response.data.message);
         } else {
-            notifyError('Error al actualizar el jugador');
+            saveNotification('error', 'Error al actualizar el jugador');
         }
     });
 };
