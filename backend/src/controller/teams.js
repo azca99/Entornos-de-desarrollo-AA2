@@ -22,10 +22,6 @@ const getTeamById = async (req, res) => {
 const postTeam = async (req, res) => {
     const { name, city, sport } = req.body;
 
-    if (!name || !city || !sport) {
-        return res.status(400).json({ message: 'Faltan datos obligatorios' });
-    }
-
     await registerTeam(name, city, sport);
 
     res.status(201).json({ message: 'Equipo registrado correctamente' });
@@ -35,10 +31,6 @@ const postTeam = async (req, res) => {
 const putTeam = async (req, res) => {
     const { name, city, sport } = req.body;
     const id = req.params.id;
-
-    if (!name || !city || !sport) {
-        return res.status(400).json({ message: 'Faltan datos obligatorios' });
-    }
 
     const updated = await modifyTeam(id, name, city, sport);
 
