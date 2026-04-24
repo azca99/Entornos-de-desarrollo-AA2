@@ -13,24 +13,26 @@ const findTeamById = async (id) => {
 };
 
 // Operación que registra un nuevo equipo en la base de datos
-const registerTeam = async (name, city, sport) => {
+const registerTeam = async (name, city, sport, image_url) => {
     const result = await db('teams').insert({
         name: name,
         city: city,
-        sport: sport
+        sport: sport,
+        image_url: image_url
     });
 
     return result;
 };
 
 // Operación que modifica un equipo en la base de datos
-const modifyTeam = async (id, name, city, sport) => {
+const modifyTeam = async (id, name, city, sport, image_url) => {
     const result = await db('teams')
         .where({ id: id })
         .update({
             name: name,
             city: city,
-            sport: sport
+            sport: sport,
+            image_url: image_url
         });
 
     return result;
@@ -55,10 +57,34 @@ const removeTeam = async (id) => {
     return result;
 };
 
+// Operación que actualiza la imagen de un equipo en la base de datos
+const updateTeamImage = async (id, image_url) => {
+    const result = await db('teams')
+        .where({ id: id })
+        .update({
+            image_url: image_url
+        });
+
+    return result;
+};
+
+// Operación que elimina la imagen de un equipo en la base de datos
+const removeTeamImage = async (id) => {
+    const result = await db('teams')
+        .where({ id: id })
+        .update({
+            image_url: null
+        });
+
+    return result;
+};
+
 module.exports = {
     findAllTeams,
     findTeamById,
     registerTeam,
     modifyTeam,
-    removeTeam
+    removeTeam,
+    updateTeamImage,
+    removeTeamImage
 };
