@@ -11,10 +11,6 @@ const getPlayers = async (req, res) => {
 const getPlayerByName = async (req, res) => {
     const name = req.query.name;
 
-    if (!name) {
-        return res.status(400).json({ message: 'Falta el parámetro de búsqueda' });
-    };
-
     const data = await findPlayerByName(req.query.name);
     res.status(200).json(data);
 };
@@ -33,10 +29,6 @@ const getPlayerById = async (req, res) => {
 // Operación que registra un nuevo jugador en la base de datos
 const postPlayer = async (req, res) => {
     const { name, birth_date, position, id_team } = req.body;
-    
-    if (!name || !birth_date || !position || !id_team) {
-        return res.status(400).json({ message: 'Faltan datos obligatorios' });
-    };
 
     const team = await findTeamById(id_team);
 
@@ -51,10 +43,6 @@ const postPlayer = async (req, res) => {
 // Operación que modifica un jugador en la base de datos
 const putPlayer = async (req, res) => {
     const { name, birth_date, position, id_team } = req.body;
-
-    if (!name || !birth_date || !position || !id_team) {
-        return res.status(400).json({ message: 'Faltan datos obligatorios' });
-    };
 
     const team = await findTeamById(id_team);
     if (!team) {
