@@ -17,7 +17,11 @@ const teamValidation = [
     body('sport')
         .trim()
         .notEmpty()
-        .withMessage('El deporte es obligatorio')
+        .withMessage('El deporte es obligatorio'),
+
+    body('image_url')
+    .optional({ values: 'falsy' })
+    .isURL().withMessage('La imagen debe ser una URL válida')
 ];
 
 // Validación para el ID del equipo
@@ -27,4 +31,12 @@ const teamIdValidation = [
         .withMessage('El ID del equipo debe ser un número entero positivo')
 ];
 
-module.exports = { teamValidation, teamIdValidation };
+// Validación para la actualización de la imagen del equipo
+const teamImageValidation = [
+    body('image_url')
+        .trim()
+        .notEmpty().withMessage('La imagen es obligatoria')
+        .isURL().withMessage('La imagen debe ser una URL válida')
+];
+
+module.exports = { teamValidation, teamIdValidation, teamImageValidation };

@@ -1,6 +1,7 @@
 import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
 import { el } from './documentUtil.js';
 import { notifyError, saveNotification } from './dialogUtil.js';
+import { isValidUrl } from './validationUtil.js';
 
 window.addTeam = function() {
 
@@ -8,6 +9,7 @@ window.addTeam = function() {
     const name = el('name').value;
     const city = el('city').value;
     const sport = el('sport').value;
+    const image_url = el('image_url').value.trim();
 
     // Validaciones
     if (name === '' || city === '' || sport === '') {
@@ -15,17 +17,25 @@ window.addTeam = function() {
         return;
     }
 
+    // Validar URL de escudo
+    if (image_url && !isValidUrl(image_url)) {
+        notifyError('Por favor, introduce una URL válida para el escudo');
+        return;
+    }
+
     // POST: mandar JSON al backend
     axios.post('http://localhost:3000/teams', {
         name: name,
         city: city,
-        sport: sport
+        sport: sport,
+        image_url: image_url
     })
     .then((response) => {
         saveNotification('ok', 'Equipo registrado correctamente');
         el('name').value = '';
         el('city').value = '';
         el('sport').value = '';
+        el('image_url').value = '';
         window.location.href = 'index.html';
     })
     .catch((error) => {

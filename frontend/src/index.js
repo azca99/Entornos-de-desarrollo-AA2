@@ -4,6 +4,9 @@ import { notifyError, notifyOk, saveNotification, showSavedNotification } from '
 
 let teamsData = [];
 
+showSavedNotification();
+
+// Mostrar equipos en la tabla
 const printTeams = function(teamList) {
     const teamTable = el('tableBody');
     teamTable.innerHTML = '';
@@ -12,10 +15,15 @@ const printTeams = function(teamList) {
                 const row = document.createElement('tr');
                 row.id = 'team-' + team.id;
 
+                const imageCell = team.image_url
+                    ? '<td><img src="' + team.image_url + '" alt="Escudo de ' + team.name + '" style="width: 50px; height: 50px;"></td>'
+                    : '<td></td>';
+
                 row.innerHTML =
                     td(team.name) +
                     td(team.city) +
                     td(team.sport) +
+                    imageCell +
                     '<td>' +
                         '<a class="btn btn-warning me-1" href="modify.html?id=' + team.id + '">' +
                         icon('edit') +
@@ -31,7 +39,7 @@ const printTeams = function(teamList) {
 
 // READ: leer equipos
 window.readTeams = function () {
-    showSavedNotification();
+    //showSavedNotification();
 
     axios.get('http://localhost:3000/teams')
         .then((response) => {
@@ -40,7 +48,7 @@ window.readTeams = function () {
         })
         .catch((error) => {
             console.error('Error al cargar los equipos:', error);
-            saveNotification('error', 'Error al cargar los equipos');
+            notifyError('error', 'Error al cargar los equipos');
         });
 };
 
@@ -62,8 +70,7 @@ window.removeTeam = function (id) {
     if (confirm('¿Estás seguro de que deseas eliminar este equipo?')) {
         axios.delete('http://localhost:3000/teams/' + id)
             .then((response) => {
-                    // TODO No se ve el mensaje
-                    saveNotification('ok', 'Equipo eliminado correctamente');
+                    notifyOk('Equipo eliminado correctamente');
                     printTeams(teamsData);
                     el('team-' + id).remove();
             })
@@ -71,11 +78,10 @@ window.removeTeam = function (id) {
                 console.error('Error al eliminar el equipo:', error);
 
                 if (error.response && error.response.data && error.response.data.message) {
-                    saveNotification('error', error.response.data.message);
+                    notifyError('error', error.response.data.message);
                 } else {
-                    saveNotification('error', 'Error al eliminar el equipo. Por favor, inténtalo de nuevo.');
+                    notifyError('error', 'Error al eliminar el equipo. Por favor, inténtalo de nuevo.');
                 }
             });
     }
-    readTeams();
 };
