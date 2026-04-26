@@ -1,0 +1,328 @@
+{
+  "info": {
+    "_postman_id": "548a70da-8d8d-4ed0-8823-cf08d00be2b8",
+    "name": "Teams Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52791481",
+    "_collection_link": "https://go.postman.co/collection/52791481-548a70da-8d8d-4ed0-8823-cf08d00be2b8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Equipo no encontrado",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}/teams/999",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams",
+            "999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Todos los equipos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}/teams",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams"
+          ]
+        },
+        "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+      },
+      "response": []
+    },
+    {
+      "name": "Equipo por id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}/teams/2",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fallo al crear (faltan datos)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"CD Almozara\",\r\n  \"city\": \"Zaragoza\",\r\n}"
+        },
+        "url": {
+          "raw": "{{URL}}/teams",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear equipo",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"CD Almozara\",\r\n  \"city\": \"Zaragoza\",\r\n  \"sport\": \"futbol sala\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}/teams",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fallo al modificar (faltan datos)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"CD Almozandia\",\r\n}"
+        },
+        "url": {
+          "raw": "{{URL}}/teams/10",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams",
+            "10"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Modificar equipo (por id)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"CD Almozara\",\r\n  \"city\": \"Zaragoza\",\r\n  \"sport\": \"Futbol sala\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}/teams/10",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams",
+            "10"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fallo al eliminar (tiene jugadores asociados)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"CD Almozandia\",\r\n}"
+        },
+        "url": {
+          "raw": "{{URL}}/teams/4",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar equipo",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"CD Almozara\",\r\n  \"city\": \"Zaragoza\",\r\n  \"sport\": \"futbol sala\"\r\n}"
+        },
+        "url": {
+          "raw": "{{URL}}/teams/10",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams",
+            "10"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Modificar escudo",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"image_url\": \"https://upload.wikimedia.org/wikipedia/an/7/79/Bmaragon.png\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}/teams/6/image",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams",
+            "6",
+            "image"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar escudo",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{URL}}/teams/6/image",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams",
+            "6",
+            "image"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fallo url inválida",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"CD Almozara\",\r\n  \"city\": \"Zaragoza\",\r\n  \"sport\": \"futbol sala\",\r\n  \"image_url\": \"url invalida\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}/teams",
+          "host": [
+            "{{URL}}"
+          ],
+          "path": [
+            "teams"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "URL",
+      "value": ""
+    }
+  ]
+}
