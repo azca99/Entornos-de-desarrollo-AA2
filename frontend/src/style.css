@@ -57,3 +57,21 @@ body {
 .card-body {
     padding: 24px;
 }
+
+.app-banner{
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.app-logo{
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+.app-subtitle{
+    color: #6c757d;
+    font-size: 1rem;
+}
