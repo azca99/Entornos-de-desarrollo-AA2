@@ -16,7 +16,7 @@ const printTeams = function(teamList) {
                 row.id = 'team-' + team.id;
 
                 const imageCell = team.image_url
-                    ? '<td><img src="' + team.image_url + '" alt="Escudo de ' + team.name + '" style="width: 50px; height: 50px;"></td>'
+                    ? '<td><img src="' + team.image_url + '" alt="Escudo de ' + team.name + '"></td>'
                     : '<td></td>';
 
                 row.innerHTML =
@@ -39,7 +39,6 @@ const printTeams = function(teamList) {
 
 // READ: leer equipos
 window.readTeams = function () {
-    //showSavedNotification();
 
     axios.get('http://localhost:3000/teams')
         .then((response) => {
