@@ -1,6 +1,7 @@
 import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm';
 import { el } from './documentUtil.js';
 import { notifyError, saveNotification } from './dialogUtil.js';
+import { isValidUrl } from './validationUtil.js';
 
 // Obtener Id del equipo a modificar
 const getTeamIdFromUrl = function() {
@@ -26,6 +27,7 @@ window.loadTeam = function() {
             el('name').value = team.name;
             el('city').value = team.city;
             el('sport').value = team.sport;
+            el('image_url').value = team.image_url || '';
         })
         .catch((error) => {
             console.error('Error al cargar el equipo:', error);
@@ -52,6 +54,7 @@ window.updateTeam = function() {
     const name = el('name').value;
     const city = el('city').value;
     const sport = el('sport').value;
+    const image_url = el('image_url').value.trim();
 
     // Validaciones
     if (name === '' || city === '' || sport === '') {
@@ -59,11 +62,18 @@ window.updateTeam = function() {
         return;
     }
 
+    // Validar URL de escudo
+    if (image_url && !isValidUrl(image_url)) {
+        notifyError('Por favor, introduce una URL válida para el escudo');
+        return;
+    }
+
     // PUT: mandar JSON al backend
     axios.put(`http://localhost:3000/teams/${id}`, {
         name: name,
         city: city,
-        sport: sport
+        sport: sport,
+        image_url: image_url
     })
     .then((response) => {
         saveNotification('ok', 'Equipo actualizado correctamente');
