@@ -12,42 +12,52 @@
     <script type="module" src="players.js"></script>
 </head>
 <body onload="readPlayers()">
-    <div>
-        <label for="searchPlayer" class="form-label">Buscar jugador</label>
-        <input type="text" class="form-control" id="searchPlayer" placeholder="Escribe el nombre del jugador" onkeyup="searchPlayers()">
-    </div>
 
     <div class="container">
         <ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link" href="index.html">Equipos</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="register.html">Nuevo equipo</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" href="players.html">Jugadores</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="player-register.html">Nuevo jugador</a>
-    </li>
-</ul>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Equipos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="register.html">Nuevo equipo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="players.html">Jugadores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="player-register.html">Nuevo jugador</a>
+            </li>
+        </ul>
 
-        <h1>Listado de jugadores</h1>
+        <div class="page-header">
+            <h1 class="page-title">Listado de jugadores</h1>
+            <p class="page-subtitle">Aquí puedes ver todos los jugadores registrados en el sistema.</p>
+        </div>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Fecha de nacimiento</th>
-                    <th>Posición</th>
-                    <th>Equipo</th> <!-- TODO cambiar id por nombre de equipo -->
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-            </tbody>
-        </table>
+        <div class="card content-card">
+            <div class="card-body">
+                <div class="search-box">
+                    <label for="searchPlayer" class="form-label">Buscar jugador</label>
+                    <input type="text" class="form-control" id="searchPlayer" placeholder="Escribe el nombre del jugador" onkeyup="searchPlayers()">
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Posición</th>
+                                <th>Equipo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

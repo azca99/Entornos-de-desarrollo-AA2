@@ -28,33 +28,40 @@
             </li>
         </ul>
 
-        <h1 class="mt-3">Registro de jugadores</h1>
+        <div class="page-header">
+            <h1 class="page-title">Registro de jugadores</h1>
+            <p class="page-subtitle">Añade un nuevo jugador a la aplicación</p>
+        </div>
 
-        <form>
-            <div class="mb-3">
-                <label for="name" class="form-label">Nombre del jugador</label>
-                <input type="text" class="form-control" id="name">
+        <div class="card content-card">
+            <div class="card-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre del jugador</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="birth_date" class="form-label">Fecha de nacimiento</label>
+                        <input type="date" class="form-control" id="birth_date">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="position" class="form-label">Posición</label>
+                        <input type="text" class="form-control" id="position">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_team" class="form-label">Equipo</label>
+                        <select class="form-select" id="id_team">
+                            <option value="">Seleccione un equipo</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onClick="addPlayer()">Registrar jugador</button>
+                </form>
             </div>
-
-            <div class="mb-3">
-                <label for="birth_date" class="form-label">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="birth_date">
-            </div>
-
-            <div class="mb-3">
-                <label for="position" class="form-label">Posición</label>
-                <input type="text" class="form-control" id="position">
-            </div>
-
-            <div class="mb-3">
-                <label for="id_team" class="form-label">Equipo</label>
-                <select class="form-select" id="id_team">
-                    <option value="">Seleccione un equipo</option>
-                </select>
-            </div>
-
-            <button type="button" class="btn btn-primary" onClick="addPlayer()">Registrar jugador</button>
-        </form>
+        </div>
     </div>
 </body>
 </html>
