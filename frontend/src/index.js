@@ -4,7 +4,11 @@ import { notifyError, notifyOk, saveNotification, showSavedNotification } from '
 
 let teamsData = [];
 
-showSavedNotification();
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        showSavedNotification();
+    }, 100);
+});
 
 // Mostrar equipos en la tabla
 const printTeams = function(teamList) {
@@ -47,7 +51,7 @@ window.readTeams = function () {
         })
         .catch((error) => {
             console.error('Error al cargar los equipos:', error);
-            notifyError('error', 'Error al cargar los equipos');
+            notifyError('Error al cargar los equipos');
         });
 };
 
@@ -69,17 +73,20 @@ window.removeTeam = function (id) {
     if (confirm('¿Estás seguro de que deseas eliminar este equipo?')) {
         axios.delete('http://localhost:3000/teams/' + id)
             .then((response) => {
-                    notifyOk('Equipo eliminado correctamente');
+                    teamsData = teamsData.filter(team => team.id !== id);
                     printTeams(teamsData);
-                    el('team-' + id).remove();
+                    
+                    requestAnimationFrame(() => {
+                        notifyOk('Equipo eliminado correctamente');
+                    });
             })
             .catch((error) => {
                 console.error('Error al eliminar el equipo:', error);
 
                 if (error.response && error.response.data && error.response.data.message) {
-                    notifyError('error', error.response.data.message);
+                    notifyError(error.response.data.message);
                 } else {
-                    notifyError('error', 'Error al eliminar el equipo. Por favor, inténtalo de nuevo.');
+                    notifyError('Error al eliminar el equipo. Por favor, inténtalo de nuevo.');
                 }
             });
     }
